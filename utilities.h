@@ -1,3 +1,7 @@
+#include <stdlib.h> // rand()
+#include <cstdlib> // RAND_MAX
+#include <math.h>
+
 // GCD of two positive integers using Euclidian algorithm
 int gcd(int x, int y) {
     while (y != 0) {
@@ -9,7 +13,7 @@ int gcd(int x, int y) {
 }
 
 // Compute and return a^(-1) mod b using extended Euclidian algorithm.
-// Precondition: a and b must be positive integers that are relatively prime and b > 1.
+// Precondition: a and b must be positive integers that are co-prime and b > 1.
 int inverse_modulo(int a, int b) {
     int s[2] = {1, 0};
     int t[2] = {0, 1};
@@ -33,4 +37,25 @@ int inverse_modulo(int a, int b) {
     if (res >= 0)
         return res;
     return res + b;
+}
+
+// compute and return base^exponent % mod.
+// Parameters base, exponent and mod must be positive whole numbers.
+unsigned long power_modulo(unsigned long base, unsigned long exponent, unsigned long mod) {
+    unsigned long res = 1;
+    unsigned long power = base;
+    while (exponent > 0) {
+        if ((exponent & 1) == 1) {
+            res = (res * power) % mod;
+        }
+        power = (power * power) % mod;
+        exponent >>= 1;
+    }
+    return res;
+}
+
+// generate pseudorandom positive integer from range [min, max] (min and max are included).
+// Parameters min and max must be positive whole numbers.
+unsigned long genPseudoRandomInt(unsigned long min, unsigned long max) {
+    return round(((double)rand() / RAND_MAX) * (max - min) + min);
 }
