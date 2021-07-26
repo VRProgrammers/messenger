@@ -1,10 +1,11 @@
 #include <iostream>
+#include <string>
 #include "rsa.h" // RSA
+#include "biginteger.h" // BigInteger
 
 using namespace std;
 
-int main() {
-    long unsigned int x = (long long unsigned)-1;
+void rsa_example() {
     RSA rsa(17, 101);
 
     cout << "p is " << rsa.p << endl;
@@ -19,4 +20,19 @@ int main() {
     cout << "Encoded message is " << encoded << endl;
     long unsigned int decoded = rsa.decodeMessage(encoded);
     cout << "Decoded message is " << decoded << endl;
+}
+
+void biginteger_example() {
+    string strNum1, strNum2;
+    cin >> strNum1;
+    cin >> strNum2;
+    BigInteger* integer1 = new BigInteger(strNum1);
+    BigInteger* integer2 = new BigInteger(strNum2);
+    BigInteger* res = integer1->add(integer2);
+    cout << res->toStringBin() << endl;
+}
+
+int main() {
+    biginteger_example();
+    return 0;
 }
