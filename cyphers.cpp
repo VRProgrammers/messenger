@@ -2,23 +2,24 @@
 #include <iostream>
 #include <string>
 #include "ecc.h"
-//#include "rsa.h"
+#include "rsa.h"
 #include "elgamal.h"
 
 using namespace std;
 
 void ecc_example(){
-    int message = 312;
 	ECC ecc;
-    printf("\nThe Public Key is (%d,%d)\n", ecc.PubKey[0], ecc.PubKey[1]);
+    cout << "Public Key: " << ecc.PubKey[0] << " : " << ecc.PubKey[1] << endl << endl;
 
-    printf("Message: %i\n", message);
+    int message = 312;
+    cout << "Initial message: " << message << endl;
 
 	int * encoded = ecc.encodeMessage(message);
-    printf("Encoded: %i\n", *encoded);
+    cout << "Encoded message: ";
+    printf("(%i, %i), (%i, %i)\n", *encoded, *(encoded+1), *(encoded+2), *(encoded+3));
 
 	int decoded = ecc.decodeMessage(encoded);
-    printf("Decoded: %i\n", decoded);
+    cout << "Decoded message: " << decoded << endl;
 }
 
 void rsa_example() {
@@ -31,26 +32,31 @@ void rsa_example() {
     cout << "d is " << rsa.d << endl << endl;
 
     long unsigned int initial = 1312;
-    cout << "Initial message is " << initial << endl;
+    cout << "Initial message: " << initial << endl;
+
     long unsigned int encoded = rsa.encodeMessage(initial);
-    cout << "Encoded message is " << encoded << endl;
+    cout << "Encoded message: " << encoded << endl;
+
     long unsigned int decoded = rsa.decodeMessage(encoded);
-    cout << "Decoded message is " << decoded << endl;
+    cout << "Decoded message: " << decoded << endl;
 }
 
 void elgamal_example(){
-    int msg = 284;
 
     Receiver rec = Receiver();
     Sender sen = Sender(rec);
 
-    cout << "message: " << msg << "\n";
-    unsigned long *encoded_parts = Elgamal::encodeMessage(msg, sen.key, sen.shared, sen.q, sen.g);
-    cout << "encoded parts: " << encoded_parts[0] << " : " << encoded_parts[1] << "\n";
-    unsigned long decoded_msg = Elgamal::decodeMessage(encoded_parts, rec.key, rec.q);
-    cout << "decoded message: " << decoded_msg << "\n";
+    int message = 284;
+    cout << "Initial message: " << message << endl;
+
+    unsigned long *encoded = Elgamal::encodeMessage(message, sen.key, sen.shared, sen.q, sen.g);
+    cout << "Encoded message: " << encoded[0] << " : " << encoded[1] << endl;
+
+    unsigned long decoded = Elgamal::decodeMessage(encoded, rec.key, rec.q);
+    cout << "Decoded message: " << decoded << endl;
 
 }
+
 void test_key_generation(){
 
     unsigned long q, g, B, receiver_key;
@@ -74,8 +80,11 @@ void test_key_generation(){
 
 
 int main(){
-//    rsa_example();
+    cout << "RSA" << endl;
+    rsa_example();
+    cout << endl << endl << "ECC" << endl;
     ecc_example();
+    cout << endl << endl << "ElGamal" << endl;
     elgamal_example();
 
     return 0;
