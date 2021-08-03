@@ -3,7 +3,7 @@
  * @file elgamal.h
  */
 
-#include <utilities.h>
+#include "utilities.h"
 
 /**
  * Struct with functions to generate keys and
