@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 #include "ecc.h"
-#include "rsa.h"
-//#include "elgamal.h"
+//#include "rsa.h"
+#include "elgamal.h"
 
 using namespace std;
 
@@ -37,9 +37,9 @@ void rsa_example() {
     long unsigned int decoded = rsa.decodeMessage(encoded);
     cout << "Decoded message is " << decoded << endl;
 }
-/*
+
 void elgamal_example(){
-    int msg = 384;
+    int msg = 284;
 
     Receiver rec = Receiver();
     Sender sen = Sender(rec);
@@ -50,6 +50,8 @@ void elgamal_example(){
     unsigned long decoded_msg = Elgamal::decodeMessage(encoded_parts, rec.key, rec.q);
     cout << "decoded message: " << decoded_msg << "\n";
 
+}
+void test_key_generation(){
 
     unsigned long q, g, B, receiver_key;
 
@@ -69,11 +71,12 @@ void elgamal_example(){
     cout << "q, g, gcd: " << q << ", " << g << ", " << gcd(q, g) << "\n";
     cout << "shared: " << shared << "\n";
 }
-*/
+
 
 int main(){
-    rsa_example();
+//    rsa_example();
     ecc_example();
+    elgamal_example();
 
     return 0;
 }
