@@ -8,7 +8,7 @@
 using namespace std;
 
 void ecc_example(){
-    int message = 155;
+    int message = 312;
 	ECC ecc;
     printf("\nThe Public Key is (%d,%d)\n", ecc.PubKey[0], ecc.PubKey[1]);
 
@@ -17,8 +17,8 @@ void ecc_example(){
 	int * encoded = ecc.encodeMessage(message);
     printf("Encoded: %i\n", *encoded);
 
-	int * decoded = ecc.decodeMessage(encoded);
-    printf("Decoded: %i\n", *decoded);
+	int decoded = ecc.decodeMessage(encoded);
+    printf("Decoded: %i\n", decoded);
 }
 
 void rsa_example() {
